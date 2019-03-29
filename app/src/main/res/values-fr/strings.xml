@@ -1,0 +1,9 @@
+<resources>
+    <string name="ma_chaine">Bonjour</string>
+    <string name="like">J\'aime</string>
+    <string name="dislike">J\'aime pas</string>
+    <string name="object">Complément :</string>
+    <string name="name">Saisir nom ici</string>
+    <string name="cancel">Annuler</string>
+    <string name="submit">Valider</string>
+</resources>
