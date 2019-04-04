@@ -17,6 +17,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondActivity"></activity>
+
+        <receiver android:name=".MyBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
