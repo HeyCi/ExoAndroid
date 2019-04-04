@@ -1,11 +1,17 @@
 package firstapp.heyci.com.firstapp;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +27,7 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
     private final int ID_MENU_DATE_PICKER = 1;
     private final int ID_MENU_TIME_PICKER = 2;
     private final int ID_MENU_ALERT_DIALOG = 3;
+    private final int ID_MENU_SERVICE = 4;
     private Calendar calendar;
 
     @Override
@@ -34,6 +41,7 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
         menu.add(0, ID_MENU_DATE_PICKER, 0, "Date Picker");
         menu.add(0, ID_MENU_TIME_PICKER, 0, "Time Picker");
         menu.add(0, ID_MENU_ALERT_DIALOG, 0, "Alert Dialog");
+        menu.add(0, ID_MENU_SERVICE, 0, "Service Example");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -49,8 +57,25 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
             case ID_MENU_ALERT_DIALOG:
                 createAlertDialog();
                 break;
+            case ID_MENU_SERVICE:
+                launchService();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 25) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(this, ServiceExActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void createDatePicker() {
@@ -77,6 +102,15 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
         alertDialogBuilder.show();
     }
 
+    public void launchService() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(this, ServiceExActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 25);
+        }
+    }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

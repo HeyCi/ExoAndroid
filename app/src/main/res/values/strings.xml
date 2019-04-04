@@ -8,4 +8,7 @@
     <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>
     <string name="next">next</string>
+    <string name="title_activity_service_ex">ServiceExActivity</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
 </resources>
