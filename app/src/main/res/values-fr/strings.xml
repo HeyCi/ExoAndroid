@@ -9,4 +9,6 @@
     <string name="next">Suivant</string>
     <string name="start">Démarrer</string>
     <string name="stop">Arrêter</string>
+    <string name="now">Maintenant</string>
+    <string name="later">Plus tard</string>
 </resources>

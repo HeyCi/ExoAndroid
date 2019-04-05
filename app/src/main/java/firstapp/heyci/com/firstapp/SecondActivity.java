@@ -15,6 +15,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,18 +24,26 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class SecondActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class SecondActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, View.OnClickListener {
     static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private final int ID_MENU_DATE_PICKER = 1;
     private final int ID_MENU_TIME_PICKER = 2;
     private final int ID_MENU_ALERT_DIALOG = 3;
     private final int ID_MENU_SERVICE = 4;
     private Calendar calendar;
+    private Button btnLater;
+    private Button btnNow;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
         calendar = Calendar.getInstance();
+        btnLater = findViewById(R.id.btnLater);
+        btnNow = findViewById(R.id.btnNow);
+
+        btnNow.setOnClickListener(this);
+        btnLater.setOnClickListener(this);
     }
 
     @Override
@@ -127,5 +137,14 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
         calendar.set(Calendar.MINUTE, minute);
 
         Toast.makeText(this, simpleDateFormat.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btnNow) {
+            NotificationUtils.createInstantNotification(this, "Ceci est une notification instantanée");
+        } else if (v == btnLater) {
+            NotificationUtils.scheduleNotification(this, "Ceci est une notification à retardement", 15000);
+        }
     }
 }

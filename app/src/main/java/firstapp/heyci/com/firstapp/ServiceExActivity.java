@@ -1,11 +1,14 @@
 package firstapp.heyci.com.firstapp;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.squareup.otto.Subscribe;
 
 public class ServiceExActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,6 +26,21 @@ public class ServiceExActivity extends AppCompatActivity implements View.OnClick
 
         btnStart.setOnClickListener(this);
         btnStop.setOnClickListener(this);
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MyApplication.getBus().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MyApplication.getBus().unregister(this);
+
     }
 
     @Override
@@ -32,5 +50,12 @@ public class ServiceExActivity extends AppCompatActivity implements View.OnClick
         } else if (v == btnStop) {
             stopService(new Intent(this, MyService.class));
         }
+    }
+
+    @Subscribe
+    public void printLocation(Location location) {
+        Double latitude = location.getLatitude();
+        Double longitude = location.getLongitude();
+        textView.setText(latitude.toString() + " / " + longitude.toString());
     }
 }

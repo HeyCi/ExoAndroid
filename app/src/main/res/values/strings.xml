@@ -11,4 +11,6 @@
     <string name="title_activity_service_ex">ServiceExActivity</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
+    <string name="now">Now</string>
+    <string name="later">Later</string>
 </resources>

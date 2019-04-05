@@ -26,6 +26,7 @@ public class MyService extends Service implements LocationListener {
         super.onCreate();
         Log.w("_TAG", "onCreate");
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            stopSelf();
             return;
         }
         locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -55,6 +56,7 @@ public class MyService extends Service implements LocationListener {
         Double latitude = location.getLatitude();
         Double longitude = location.getLongitude();
         Toast.makeText(this, latitude.toString() + " / " + longitude.toString(), Toast.LENGTH_SHORT).show();
+        MyApplication.getBus().post(location);
     }
 
     @Override
