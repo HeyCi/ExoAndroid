@@ -11,4 +11,7 @@
     <string name="stop">Arrêter</string>
     <string name="now">Maintenant</string>
     <string name="later">Plus tard</string>
+    <string name="add">Ajouter</string>
+    <string name="back">Retour</string>
+    <string name="contacts">Contacts</string>
 </resources>

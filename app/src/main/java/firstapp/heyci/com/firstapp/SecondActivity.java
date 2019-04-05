@@ -33,6 +33,8 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
     private Calendar calendar;
     private Button btnLater;
     private Button btnNow;
+    private Button btnBack;
+    private Button btnContact;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,9 +43,13 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
         calendar = Calendar.getInstance();
         btnLater = findViewById(R.id.btnLater);
         btnNow = findViewById(R.id.btnNow);
+        btnBack = findViewById(R.id.btnBack);
+        btnContact = findViewById(R.id.btnContact);
 
         btnNow.setOnClickListener(this);
         btnLater.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
+        btnContact.setOnClickListener(this);
     }
 
     @Override
@@ -145,6 +151,14 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
             NotificationUtils.createInstantNotification(this, "Ceci est une notification instantanée");
         } else if (v == btnLater) {
             NotificationUtils.scheduleNotification(this, "Ceci est une notification à retardement", 15000);
+        } else if (v == btnBack) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (v == btnContact) {
+            Intent intent = new Intent(this, RecyclerViewActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

@@ -67,4 +67,23 @@ public class NotificationUtils {
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 
+    public static Notification getNotification(Context context, String message) {
+        initChannel(context);
+
+        Intent intent = new Intent(context, MainActivity.class); //renvoie sur l'activité quand appui sur notif
+        intent.putExtra("onBoot", true);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID);
+        notificationBuilder.setSmallIcon(R.mipmap.done)
+                .setContentTitle("My Title")
+                .setContentText(message)
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                .setDefaults(Notification.DEFAULT_ALL);
+
+        //NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+
+        return notificationBuilder.build();
+    }
 }

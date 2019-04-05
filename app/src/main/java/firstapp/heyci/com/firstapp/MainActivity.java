@@ -37,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSubmit.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+
+        Boolean isBooted = getIntent().getBooleanExtra("onBoot", false);
+        if (isBooted) {
+            stopService(new Intent(this, OnBootService.class));
+        }
     }
 
     @Override
