@@ -2,6 +2,7 @@ package firstapp.heyci.com.firstapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
     private RecyclerView rwContact;
     private ArrayList<Contact> contactList;
     private int nbContact = 0;
-    private RecyclerView recyclerView;
+    private ContactAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,10 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
         btnAdd.setOnClickListener(this);
 
         contactList = new ArrayList<>();
+        adapter = new ContactAdapter(contactList);
+
+        rwContact.setAdapter(adapter);
+        rwContact.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -36,5 +41,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
         contactList.add(contact);
         Toast.makeText(this, "Ajout de " + contact.getFirstName(), Toast.LENGTH_SHORT).show();
         nbContact++;
+        adapter.notifyDataSetChanged();
+        adapter.notifyItemInserted(0);
     }
 }
