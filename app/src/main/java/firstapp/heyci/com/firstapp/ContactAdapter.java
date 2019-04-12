@@ -2,11 +2,13 @@ package firstapp.heyci.com.firstapp;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     public ContactAdapter(ArrayList<Contact> contactList) {
         this.contactList = contactList;
+    }
+    private OnContactClickListener contactClickListener;
+
+    public void setOnContactClickListener(OnContactClickListener contactClickListener) {
+        this.contactClickListener = contactClickListener;
     }
 
     @NonNull
@@ -29,6 +36,23 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         Contact contact = contactList.get(position);
         holder.firstName.setText(contact.getFirstName());
         holder.lastName.setText(contact.getLastName());
+        holder.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(contactClickListener != null) {
+                    contactClickListener.onContactClic(contact, holder.getAdapterPosition());
+                }
+            }
+        });
+        holder.root.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(contactClickListener != null) {
+                    contactClickListener.onContactLongClick(contact, holder.getAdapterPosition());
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -40,12 +64,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         TextView firstName;
         TextView lastName;
         ImageView imgContact;
+        View root;
 
         public ViewHolder(View itemView) {
             super(itemView);
             firstName = itemView.findViewById(R.id.firstName);
             lastName = itemView.findViewById(R.id.lastName);
             imgContact = itemView.findViewById(R.id.imgContact);
+            root = itemView.findViewById(R.id.root);
         }
     }
 }

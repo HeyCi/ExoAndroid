@@ -30,10 +30,11 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
     private final int ID_MENU_TIME_PICKER = 2;
     private final int ID_MENU_ALERT_DIALOG = 3;
     private final int ID_MENU_SERVICE = 4;
+    private final int ID_MENU_WEB = 5;
     private Calendar calendar;
     private Button btnLater;
     private Button btnNow;
-    private Button btnBack;
+    private Button btnCity;
     private Button btnContact;
 
     @Override
@@ -43,12 +44,12 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
         calendar = Calendar.getInstance();
         btnLater = findViewById(R.id.btnLater);
         btnNow = findViewById(R.id.btnNow);
-        btnBack = findViewById(R.id.btnBack);
+        btnCity = findViewById(R.id.btnCity);
         btnContact = findViewById(R.id.btnContact);
 
         btnNow.setOnClickListener(this);
         btnLater.setOnClickListener(this);
-        btnBack.setOnClickListener(this);
+        btnCity.setOnClickListener(this);
         btnContact.setOnClickListener(this);
     }
 
@@ -58,6 +59,7 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
         menu.add(0, ID_MENU_TIME_PICKER, 0, "Time Picker");
         menu.add(0, ID_MENU_ALERT_DIALOG, 0, "Alert Dialog");
         menu.add(0, ID_MENU_SERVICE, 0, "Service Example");
+        menu.add(0, ID_MENU_WEB, 0, "Web Example");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -76,6 +78,10 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
             case ID_MENU_SERVICE:
                 launchService();
                 break;
+            case ID_MENU_WEB:
+                Intent intent = new Intent(this, WebActivity.class);
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -87,7 +93,6 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent(this, ServiceExActivity.class);
                 startActivity(intent);
-                finish();
             } else {
                 Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
             }
@@ -122,7 +127,6 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(this, ServiceExActivity.class);
             startActivity(intent);
-            finish();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 25);
         }
@@ -151,14 +155,12 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
             NotificationUtils.createInstantNotification(this, "Ceci est une notification instantanée");
         } else if (v == btnLater) {
             NotificationUtils.scheduleNotification(this, "Ceci est une notification à retardement", 15000);
-        } else if (v == btnBack) {
-            Intent intent = new Intent(this, MainActivity.class);
+        } else if (v == btnCity) {
+            Intent intent = new Intent(this, CityActivity.class);
             startActivity(intent);
-            finish();
         } else if (v == btnContact) {
             Intent intent = new Intent(this, RecyclerViewActivity.class);
             startActivity(intent);
-            finish();
         }
     }
 }

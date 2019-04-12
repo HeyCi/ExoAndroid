@@ -14,4 +14,8 @@
     <string name="add">Ajouter</string>
     <string name="back">Retour</string>
     <string name="contacts">Contacts</string>
+    <string name="load">Charger</string>
+    <string name="search">Chercher</string>
+    <string name="city">Villes</string>
+    <string name="code">code</string>
 </resources>
