@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
     private Button btnAdd;
     private Button btnLoad;
     private RecyclerView rwContact;
+    private ProgressBar progressBar;
     private ArrayList<Contact> contactList;
     private int nbContact = 0;
     private ContactAdapter adapter;
@@ -29,6 +31,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
         btnAdd = findViewById(R.id.btnAdd);
         btnLoad = findViewById(R.id.btnLoad);
         rwContact = findViewById(R.id.rwContact);
+        progressBar = findViewById(R.id.progressBar);
 
         btnAdd.setOnClickListener(this);
         btnLoad.setOnClickListener(this);
@@ -54,6 +57,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
         } else if (v == btnLoad) {
             asyncTask = new MonAsyncTask();
             asyncTask.execute();
+            progressBar.setVisibility(v.VISIBLE); // ou alors on peut le mettre dans onPreExecute()
         }
 }
 
@@ -92,6 +96,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(RecyclerViewActivity.this, "Erreur : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             } else {
                contactList.add(0, resultat);
+               progressBar.setVisibility(View.GONE);
                adapter.notifyDataSetChanged();
             }
         }

@@ -31,6 +31,7 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
     private final int ID_MENU_ALERT_DIALOG = 3;
     private final int ID_MENU_SERVICE = 4;
     private final int ID_MENU_WEB = 5;
+    private final int ID_MENU_MAPS = 6;
     private Calendar calendar;
     private Button btnLater;
     private Button btnNow;
@@ -60,6 +61,7 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
         menu.add(0, ID_MENU_ALERT_DIALOG, 0, "Alert Dialog");
         menu.add(0, ID_MENU_SERVICE, 0, "Service Example");
         menu.add(0, ID_MENU_WEB, 0, "Web Example");
+        menu.add(0, ID_MENU_MAPS, 0, "Maps example");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -79,9 +81,12 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
                 launchService();
                 break;
             case ID_MENU_WEB:
-                Intent intent = new Intent(this, WebActivity.class);
-                startActivity(intent);
+                Intent intentWeb = new Intent(this, WebActivity.class);
+                startActivity(intentWeb);
                 break;
+            case ID_MENU_MAPS:
+                Intent intentMaps = new Intent(this, MapsActivity.class);
+                startActivity(intentMaps);
         }
         return super.onOptionsItemSelected(item);
     }
